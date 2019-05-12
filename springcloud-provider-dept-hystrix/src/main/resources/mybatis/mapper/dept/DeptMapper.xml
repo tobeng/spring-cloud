@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.dept.dao.DeptDao">
+
+
+
+    <select id="getByDeptNo" parameterType="String" resultType="com.test.api.entity.Dept">
+       select id,deptNo,deptName,dbSource,createdTime,updatedTime  from dept where dept_no=#{deptNo};
+    </select>
+    <select id="getAll" resultType="com.test.api.entity.Dept">
+       select id,dept_no,dept_name,db_source,created_time,updated_time from dept;
+    </select>
+    <insert id="addDept" parameterType="com.test.api.entity.Dept">
+       INSERT INTO dept(dept_no,dept_name,db_source) VALUES(#{deptNo},#{deptName},#{dbSource});
+    </insert>
+</mapper>

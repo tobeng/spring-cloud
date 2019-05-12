@@ -1,0 +1,48 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: springcloud-zuul-gateway                       # 对外暴露的微服务名称
+  profiles:
+    active:
+      - dev
+
+zuul:
+  ignored-services: springcloud-provider-dept
+  prefix: /test
+#  ignored-services: "*"
+  routes:
+    mydept.serviceId: springcloud-provider-dept
+    mydept.path: /mydept/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka8001.com:8001/eureka,http://eureka8002.com:8002/eureka,http://eureka8003.com:8003/eureka
+  instance:
+    instance-id: zuul-gateway
+    prefer-ip-address: true  # 显示访问路径
+
+info:
+  app:
+    name: provider-dept
+  company:
+    name: http://localhost:8081/eureka
+  build:
+    artifactId: $project.artifactId$
+    version: $project.version$
+
+
+---
+spring:
+  profiles: dev   # 开发环境
+  application:
+    name: springcloud-config-dev
+
+---
+spring:
+  profiles: test  # 测试环境
+  application:
+    name: springcloud-config-test
+# 保存为 UTF-8 格式
